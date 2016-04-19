@@ -1,4 +1,4 @@
-import { Component} from 'angular2/core';
+import { Component, NgZone} from 'angular2/core';
 import { RioCounter, RioContainer } from '../components';
 
 import { CounterService } from '../services/counter-service';
@@ -11,13 +11,18 @@ import { CounterService } from '../services/counter-service';
     <rio-container>
       <h2 class="center caps">Counter</h2>
       <rio-counter
-        [counter]="counterPage.counter"
-        [increment]="counterPage.increment"
-        [decrement]="counterPage.decrement">
+        [counter]="counterService.counter"
+        [increment]="counterService.increment"
+        [decrement]="counterService.decrement">
       </rio-counter>
     </rio-container>
   `
 })
 export class RioCounterPage {
-  constructor(private counterPage: CounterService) { }
+  constructor(
+    private counterService: CounterService,
+    private _ngZone: NgZone
+  ) { 
+    setTimeout(() => this._ngZone.run(() => undefined));
+  }
 }
