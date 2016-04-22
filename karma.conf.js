@@ -5,7 +5,7 @@ const loaders = require('./webpack/loaders');
 module.exports = function (config) {
   config.set({
     frameworks: [
-      'mocha',
+      'jasmine',
       'chai',
       'sinon',
       'source-map-support',
@@ -46,7 +46,7 @@ module.exports = function (config) {
       noInfo: true // prevent console spamming when running in Karma!
     },
 
-    reporters: ['mocha', 'coverage'],
+    reporters: ['jasmine-runner', 'coverage'],
     // only output json report to be remapped by remap-istanbul
     coverageReporter: {
       reporters: [
@@ -58,6 +58,13 @@ module.exports = function (config) {
       }
     },
 
+    jasmineRunnerReporter: {
+      outputFile: 'jasmine-runner.html',
+      includes: [
+        "node_modules/jasmine-expect/dist/jasmine-matchers.js"
+      ]
+    },
+    
     port: 9999,
     colors: true,
     logLevel: config.LOG_INFO,
